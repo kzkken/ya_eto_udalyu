@@ -40,7 +40,7 @@ private:
 public:
     Parser(const std::map<std::string, std::vector<std::string>>& g);
     std::shared_ptr<Node> parseRule(const std::string& ruleName, std::string& errorMsg, int& errorPos);
-    ParseResult parse(const std::vector<std::string>& lemmas);
+    ParseResult parse(std::vector<std::string>& lemmas);
 };
 
 std::map<std::string, std::vector<std::string>> loadGrammar(const std::string& filename);

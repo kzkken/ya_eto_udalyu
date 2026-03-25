@@ -215,7 +215,7 @@ shared_ptr<Node> Parser::parseRule(const string& ruleName, string& errorMsg, int
 }
 
 //парсинг
-ParseResult Parser::parse(const vector<string>& lemmas){
+ParseResult Parser::parse(vector<string>& lemmas){
     ParseResult result;
     
     tokens = lemmas;
@@ -231,9 +231,20 @@ ParseResult Parser::parse(const vector<string>& lemmas){
     auto tree = parseRule("Запрос", errorMsg, errorPos);
     
     //проверяем, все ли токены разобраны
-    if (tree && pos == tokens.size()){
+    if (tree){
         result.success = true;
         result.tree = tree;
+        if (pos == tokens.size()){
+            lemmas.clear();
+        }
+        else{
+            if (tokens[pos] == "и"){
+                lemmas.erase(lemmas.begin(), lemmas.begin() + pos + 1);
+            }
+            else{
+                lemmas.erase(lemmas.begin(), lemmas.begin() + pos);
+            }
+        }
     } 
     else{
         result.success = false;

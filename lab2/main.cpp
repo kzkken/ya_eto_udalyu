@@ -25,16 +25,19 @@ int main(){
         }
         cout << "\n";
 
-        ParseResult result = parser.parse(tokens);
-
-        if (result.success){
-            cout << "Дерево:\n";
-            printTree(result.tree);
-        } 
-        else{
-            cout << "Ошибка: " << result.error << "\n";
+        ParseResult result; int flag = 1;
+        while (tokens.size() > 0 && flag) {
+            result = parser.parse(tokens);
+            if (result.success){
+                cout << "Дерево:\n";
+                printTree(result.tree);
+            } 
+            else{
+                cout << "Ошибка: " << result.error << "\n";
+                flag = 0;
+            }
+            cout << "\n";
         }
-        cout << "\n";
     }
     
     return 0;
